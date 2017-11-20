@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 54f457803f945a347bfc62a565b8031e
+timeCreated: 1507457830
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Square721 Cn BT
+  fontNames:
+  - Square721 Cn BT
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
