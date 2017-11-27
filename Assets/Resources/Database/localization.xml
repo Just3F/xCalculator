@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LocalizationCollection>
+  <Items>
+    <Item wordIdentifire="start_game">
+      <RU>Старт</RU>
+      <EU>Start</EU>
+    </Item>
+    <Item wordIdentifire="endGame">
+      <RU>ssss</RU>
+      <EU>22</EU>
+    </Item>
+  </Items>
+
+</LocalizationCollection>

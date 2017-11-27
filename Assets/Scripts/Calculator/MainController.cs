@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Assets.Scripts.Common;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,10 +8,12 @@ namespace Assets.Scripts.Calculator
 {
     public class MainController : MonoBehaviour
     {
+        public AdditionalCalculatorController additionalCalculator;
+
         [HideInInspector]
         public GameObject selectedButton;
-
-        private bool isLose, isWin;
+        [HideInInspector]
+        public bool isLose, isWin;
         private int[] generatedCode, enteredCode;
 
 
@@ -21,14 +21,24 @@ namespace Assets.Scripts.Calculator
         {
             isLose = false;
             isWin = false;
+            //TODO Generate unique symbols
             generatedCode = CalcExtenisons.GenerateCode();
             ResetDisplayValues();
-            Debug.Log(generatedCode);
         }
 
         void Start ()
         {
             ResetValuesToDefault();
+
+        }
+
+        void Update()
+        {
+            if (isWin)
+            {
+                isWin = false;
+                ResetDisplayValues();
+            }
         }
 
         public void ChangeValue(GameObject passedButton)
@@ -46,6 +56,7 @@ namespace Assets.Scripts.Calculator
             {
                 button.GetComponentInChildren<Text>().text = "0";
             }
+            additionalCalculator.ResetToDefault();
         }
 
         private int[] GetEnteredCode()
@@ -63,7 +74,28 @@ namespace Assets.Scripts.Calculator
         public void Deactivate()
         {
             enteredCode = GetEnteredCode();
+            CalcExtenisons.LogArray(generatedCode);
             CalcExtenisons.LogArray(enteredCode);
+
+            if (generatedCode.SequenceEqual(enteredCode))
+            {
+                isWin = true;
+                Debug.Log("WIN");
+            }
+            else
+            {
+                string codeForAdditionalPanel = "";
+                for (int i = 0; i < generatedCode.Length; i++)
+                {
+                    if (generatedCode[i] == enteredCode[i])
+                        codeForAdditionalPanel += "<color=#008000ff>" + enteredCode[i] + "</color>";
+                    else if (CalcExtenisons.IsEqualForOneLevel(enteredCode[i], generatedCode[i]))
+                        codeForAdditionalPanel += "<color=#ffa500ff>" + enteredCode[i] + "</color>";
+                    else
+                        codeForAdditionalPanel += "<color=#ff0000ff>" + enteredCode[i] + "</color>";
+                }
+                additionalCalculator.AddCode(codeForAdditionalPanel);
+            }
         }
 
     }
