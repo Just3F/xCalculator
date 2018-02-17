@@ -20,5 +20,8 @@ public class DisplayButton : MonoBehaviour
     void TaskOnClick()
     {
         mainController.selectedButton = gameObject;
+        Debug.Log(gameObject.GetComponentInChildren<Image>().color);
+        mainController.ResetDisplayColor();
+        gameObject.GetComponentInChildren<Image>().color = new Color(0.15f, 0.456f, 0.15f, 0.75f);
     }
 }

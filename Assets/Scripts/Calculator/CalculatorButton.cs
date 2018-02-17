@@ -38,8 +38,8 @@ namespace Assets.Scripts.Calculator
 
         private void PlaySound()
         {
-            //FindObjectOfType<AudioManager>().Play("BtnClick");
-            //Debug.Log("PLAY SOUND");
+            FindObjectOfType<AudioManager>().Play("BtnClick");
+            Debug.Log("PlaySound method");
         }
 
     }

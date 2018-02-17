@@ -5,9 +5,37 @@
       <RU>Старт</RU>
       <EU>Start</EU>
     </Item>
+    <Item wordIdentifire="exit_game">
+      <RU>Выход</RU>
+      <EU>Exit</EU>
+    </Item>
     <Item wordIdentifire="endGame">
       <RU>ssss</RU>
       <EU>22</EU>
+    </Item>
+    <Item wordIdentifire="settings_music">
+      <RU>Музыка:</RU>
+      <EU>Music:</EU>
+    </Item>
+    <Item wordIdentifire="settings_sound">
+      <RU>Звуки:</RU>
+      <EU>Sounds:</EU>
+    </Item>
+    <Item wordIdentifire="settings_vibration">
+      <RU>Вибрация:</RU>
+      <EU>Vibration:</EU>
+    </Item>
+    <Item wordIdentifire="settings_language">
+      <RU>Язык:</RU>
+      <EU>Language:</EU>
+    </Item>
+    <Item wordIdentifire="settings_graphic">
+      <RU>Графика:</RU>
+      <EU>Graphic:</EU>
+    </Item>
+    <Item wordIdentifire="settings_home">
+      <RU>Назад</RU>
+      <EU>Back</EU>
     </Item>
   </Items>
 

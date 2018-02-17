@@ -6,28 +6,37 @@ using UnityEngine.UI;
 public class TopBarController : MonoBehaviour
 {
     private float timer;
-    private int health, level;
-    public Text LevelText, HealthText, TimerText;
+    public int health, level = 1;
+    public Text levelText, timerText, healthText;
     private MainController mainController;
 
     public void ResetValuesToDefault()
     {
-        timer = 65f;
+        timer = 500f;
         health = 9;
-        level = 0;
+        levelText.text = level.ToString();
+        healthText.text = health.ToString();
+    }
+
+    public void ReduceHealth()
+    {
+        health--;
+        healthText.text = health.ToString();
     }
 
     void Start()
     {
-        ResetValuesToDefault();
+        //ResetValuesToDefault();
         mainController = FindObjectOfType<MainController>();
     }
 
     void Update()
     {
         timer -= Time.deltaTime;
-        TimerText.text = CalcExtenisons.FloatToTime(timer, "#0:00");
-        if (timer <= 0f)
+        timerText.text = CalcExtenisons.FloatToTime(timer, "#0:00");
+        if (timer <= 0f && mainController.isPlaying)
+        {
             mainController.isLose = true;
+        }
     }
 }
