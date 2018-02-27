@@ -18,6 +18,7 @@ namespace Assets.Scripts.Calculator
         public bool isLose, isWin, isPlaying;
         private int[] generatedCode, enteredCode;
 
+
         public List<GameObject> DisplayCalculatorValues { get; set; }
 
         private TopBarController topBarController;
@@ -32,12 +33,12 @@ namespace Assets.Scripts.Calculator
             topBarController.ResetValuesToDefault();
         }
 
-
+        
         void Start()
         {
             DisplayCalculatorValues = GameObject.FindGameObjectsWithTag("MainDisplayNumber").OrderBy(x => x.gameObject.name).ToList();
             topBarController = UITopBar.GetComponent<TopBarController>();
-            ResetValuesToDefault();
+            //ResetValuesToDefault();
         }
 
         public void StartGame()
@@ -111,6 +112,7 @@ namespace Assets.Scripts.Calculator
 
         public void ResetDisplayValues()
         {
+            DisplayCalculatorValues = GameObject.FindGameObjectsWithTag("MainDisplayNumber").OrderBy(x => x.gameObject.name).ToList();
 
             ResetDisplayColor();
             foreach (var button in DisplayCalculatorValues)
