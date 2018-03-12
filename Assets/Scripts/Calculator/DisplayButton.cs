@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.Calculator;
-using Assets.Scripts.Common;
+﻿using Assets.Scripts.Calculator;
 using UnityEngine;
 using UnityEngine.UI;
 

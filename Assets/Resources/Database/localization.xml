@@ -37,6 +37,16 @@
       <RU>Назад</RU>
       <EU>Back</EU>
     </Item>
+    <Item wordIdentifire="lose_game">
+      <RU>
+        Вы проиграли[br]
+        Ваш счет: [lvl]
+      </RU>
+      <EU>
+        You lose[br]
+        Your stat: [lvl]
+      </EU>
+    </Item>
   </Items>
 
 </LocalizationCollection>

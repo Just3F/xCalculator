@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Common;
@@ -10,7 +11,7 @@ namespace Assets.Scripts.Calculator
     public class MainController : MonoBehaviour
     {
         public AdditionalCalculatorController additionalCalculator;
-        public GameObject UITopBar, UICalculator, gameCamera;
+        public GameObject UITopBar, UICalculator, UIGameLose, gameCamera;
 
         [HideInInspector]
         public GameObject selectedButton;
@@ -18,6 +19,10 @@ namespace Assets.Scripts.Calculator
         public bool isLose, isWin, isPlaying;
         private int[] generatedCode, enteredCode;
 
+        public ParticleSystem Explosion, Smoke, SmokeBuild;
+        public GameObject Build_01, DestroyBuild;
+
+        public Text GameLoseText;
 
         public List<GameObject> DisplayCalculatorValues { get; set; }
 
@@ -49,6 +54,8 @@ namespace Assets.Scripts.Calculator
             ResetValuesToDefault();
             ResetDisplayValues();
             isPlaying = true;
+            gameCamera.GetComponent<Animator>().SetTrigger("GoToBuild_01");
+
         }
 
         public void StopGame()
@@ -65,15 +72,39 @@ namespace Assets.Scripts.Calculator
                 topBarController.level++;
                 isWin = false;
                 StopGame();
-                gameCamera.GetComponent<Animator>().SetTrigger("win");
+                gameCamera.GetComponent<Animator>().SetTrigger("GoToNextLevel");
             }
             if (isLose)
             {
                 isLose = false;
                 StopGame();
                 gameCamera.GetComponent<Animator>().SetTrigger("lose");
+                Explosion.Play();
+                SmokeBuild.Play();
+                StartCoroutine("EnableCameraSmoke");
+                Build_01.SetActive(false);
+                DestroyBuild.SetActive(true);
                 Debug.Log("YOU LOSE");
             }
+        }
+
+        public void DisableLoseEffects()
+        {
+            UIGameLose.SetActive(false);
+            Smoke.Stop();
+            Smoke.gameObject.SetActive(false);
+            Explosion.Stop();
+            SmokeBuild.Stop();
+        }
+
+        IEnumerator EnableCameraSmoke()
+        {
+            yield return new WaitForSeconds(3.0f);
+            UIGameLose.SetActive(true);
+            var text = GameLoseText.text.Replace("[lvl]", topBarController.level.ToString());
+            GameLoseText.text = text;
+            Smoke.Play();
+            yield return null;
         }
 
         public void ChangeValue(GameObject passedButton)

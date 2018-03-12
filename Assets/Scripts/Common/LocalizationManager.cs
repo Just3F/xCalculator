@@ -23,11 +23,21 @@ public class LocalizationManager : MonoBehaviour
     void Awake()
     {
         language = (Enums.Languages)Enum.Parse(typeof(Enums.Languages), PlayerPrefs.GetString("Language", "EU"));
+    }
+
+    static void InitLocalization()
+    {
+        language = (Enums.Languages)Enum.Parse(typeof(Enums.Languages), PlayerPrefs.GetString("Language", "EU"));
         loc = LocalizationContainer.Load();
     }
 
     public static string GetWord(string wordIdentifire)
     {
+        if (loc == null)
+        {
+            InitLocalization();
+        }
+
         var wordObject = loc.locList.FirstOrDefault(x => x.wordIdentifire == wordIdentifire);
         if (wordObject == null)
         {
