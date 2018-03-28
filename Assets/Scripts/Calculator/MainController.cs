@@ -21,8 +21,12 @@ namespace Assets.Scripts.Calculator
 
         public ParticleSystem Explosion, Smoke, SmokeBuild;
         public GameObject Build_01, DestroyBuild;
+        public Image BatteryLabel;
 
         public Text GameLoseText;
+
+        public List<Sprite> BatteryImages;
+
 
         public List<GameObject> DisplayCalculatorValues { get; set; }
 
@@ -36,9 +40,15 @@ namespace Assets.Scripts.Calculator
             generatedCode = CalcExtenisons.GenerateCode();
             ResetDisplayValues();
             topBarController.ResetValuesToDefault();
+            SetBatteryLabel();
         }
 
-        
+        private void SetBatteryLabel()
+        {
+            var batteryLvl = PlayerPrefs.GetInt("battery", 5);
+            BatteryLabel.sprite = BatteryImages[batteryLvl];
+        }
+
         void Start()
         {
             DisplayCalculatorValues = GameObject.FindGameObjectsWithTag("MainDisplayNumber").OrderBy(x => x.gameObject.name).ToList();
@@ -48,6 +58,11 @@ namespace Assets.Scripts.Calculator
 
         public void StartGame()
         {
+            if (PlayerPrefs.GetInt("battery", 5) < 0)
+            {
+                Debug.Log("You need to charge your battery.");
+                return;
+            }
             UITopBar.SetActive(true);
             UICalculator.SetActive(true);
 
@@ -76,6 +91,7 @@ namespace Assets.Scripts.Calculator
             }
             if (isLose)
             {
+                PlayerPrefs.SetInt("battery", PlayerPrefs.GetInt("battery", 5) - 1);
                 isLose = false;
                 StopGame();
                 gameCamera.GetComponent<Animator>().SetTrigger("lose");
