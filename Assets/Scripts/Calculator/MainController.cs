@@ -19,15 +19,16 @@ namespace Assets.Scripts.Calculator
         public bool isLose, isWin, isPlaying;
         private int[] generatedCode, enteredCode;
 
-        public ParticleSystem Explosion, Smoke, SmokeBuild;
-        public GameObject Build_01, DestroyBuild;
+        public ParticleSystem Smoke;
+        public List<ParticleSystem> ExplosionList, SmokeListBuild;
+        public List<GameObject> BuildsNormal, BuildsDestroyed;
         public Image BatteryLabel;
 
         public Text GameLoseText;
 
         public List<Sprite> BatteryImages;
 
-
+        private int CurrentBuildNumber = 0;
         public List<GameObject> DisplayCalculatorValues { get; set; }
 
         private TopBarController topBarController;
@@ -68,9 +69,12 @@ namespace Assets.Scripts.Calculator
 
             ResetValuesToDefault();
             ResetDisplayValues();
+
+            BuildsNormal.ForEach(x=>x.SetActive(true));
+            BuildsDestroyed.ForEach(x=>x.SetActive(false));
+
             isPlaying = true;
             gameCamera.GetComponent<Animator>().SetTrigger("GoToBuild_01");
-
         }
 
         public void StopGame()
@@ -88,6 +92,9 @@ namespace Assets.Scripts.Calculator
                 isWin = false;
                 StopGame();
                 gameCamera.GetComponent<Animator>().SetTrigger("GoToNextLevel");
+                CurrentBuildNumber++;
+                if (CurrentBuildNumber > 4)
+                    CurrentBuildNumber = 0;
             }
             if (isLose)
             {
@@ -95,22 +102,25 @@ namespace Assets.Scripts.Calculator
                 isLose = false;
                 StopGame();
                 gameCamera.GetComponent<Animator>().SetTrigger("lose");
-                Explosion.Play();
-                SmokeBuild.Play();
                 StartCoroutine("EnableCameraSmoke");
-                Build_01.SetActive(false);
-                DestroyBuild.SetActive(true);
+
+                ExplosionList[CurrentBuildNumber].Play();
+                SmokeListBuild[CurrentBuildNumber].Play();
+                BuildsNormal[CurrentBuildNumber].SetActive(false);
+                BuildsDestroyed[CurrentBuildNumber].SetActive(true);
                 Debug.Log("YOU LOSE");
             }
         }
+
+
 
         public void DisableLoseEffects()
         {
             UIGameLose.SetActive(false);
             Smoke.Stop();
             Smoke.gameObject.SetActive(false);
-            Explosion.Stop();
-            SmokeBuild.Stop();
+            ExplosionList[CurrentBuildNumber].Stop();
+            SmokeListBuild[CurrentBuildNumber].Stop();
         }
 
         IEnumerator EnableCameraSmoke()
@@ -119,6 +129,7 @@ namespace Assets.Scripts.Calculator
             UIGameLose.SetActive(true);
             var text = GameLoseText.text.Replace("[lvl]", topBarController.level.ToString());
             GameLoseText.text = text;
+            Smoke.gameObject.SetActive(true);
             Smoke.Play();
             yield return null;
         }

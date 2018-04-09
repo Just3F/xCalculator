@@ -12,7 +12,7 @@ public class TopBarController : MonoBehaviour
 
     public void ResetValuesToDefault()
     {
-        timer = 500f;
+        timer = 30f;
         health = 6;
         levelText.text = level.ToString();
         healthText.text = health.ToString();
