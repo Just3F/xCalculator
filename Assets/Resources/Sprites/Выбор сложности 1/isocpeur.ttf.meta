@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: bfacb59ec14a8e142927089ff5cf8b08
+timeCreated: 1524253832
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: ISOCPEUR
+  fontNames:
+  - ISOCPEUR
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 8f7d556c39baee24b977b88fb0bfb430, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

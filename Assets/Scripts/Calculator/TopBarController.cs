@@ -10,10 +10,30 @@ public class TopBarController : MonoBehaviour
     public Text levelText, timerText, healthText;
     private MainController mainController;
 
+    void Awake()
+    {
+        //ResetValuesToDefault();
+        mainController = FindObjectOfType<MainController>();
+    }
+
     public void ResetValuesToDefault()
     {
-        timer = 30f;
-        health = 6;
+        switch (mainController.CurrentDifficult)
+        {
+            case 1:
+                timer = 300f;
+                health = 7;
+                break;
+            case 2:
+                timer = 180f;
+                health = 5;
+                break;
+            case 3:
+                timer = 120f;
+                health = 4;
+                break;
+        }
+
         levelText.text = level.ToString();
         healthText.text = health.ToString();
     }
@@ -24,11 +44,6 @@ public class TopBarController : MonoBehaviour
         healthText.text = health.ToString();
     }
 
-    void Start()
-    {
-        //ResetValuesToDefault();
-        mainController = FindObjectOfType<MainController>();
-    }
 
     void Update()
     {

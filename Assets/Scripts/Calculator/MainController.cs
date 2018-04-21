@@ -32,6 +32,7 @@ namespace Assets.Scripts.Calculator
         public List<GameObject> DisplayCalculatorValues { get; set; }
 
         private TopBarController topBarController;
+        public int CurrentDifficult = 1;
 
         private void ResetValuesToDefault()
         {
@@ -57,6 +58,11 @@ namespace Assets.Scripts.Calculator
             //ResetValuesToDefault();
         }
 
+        public void ChangeDifficult(int difficlut)
+        {
+            CurrentDifficult = difficlut;
+        }
+
         public void StartGame()
         {
             if (PlayerPrefs.GetInt("battery", 5) < 0)
@@ -70,8 +76,8 @@ namespace Assets.Scripts.Calculator
             ResetValuesToDefault();
             ResetDisplayValues();
 
-            BuildsNormal.ForEach(x=>x.SetActive(true));
-            BuildsDestroyed.ForEach(x=>x.SetActive(false));
+            BuildsNormal.ForEach(x => x.SetActive(true));
+            BuildsDestroyed.ForEach(x => x.SetActive(false));
 
             isPlaying = true;
             gameCamera.GetComponent<Animator>().SetTrigger("GoToBuild_01");
