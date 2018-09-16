@@ -114,6 +114,7 @@ namespace Assets.Scripts.Calculator
                 SmokeListBuild[CurrentBuildNumber].Play();
                 BuildsNormal[CurrentBuildNumber].SetActive(false);
                 BuildsDestroyed[CurrentBuildNumber].SetActive(true);
+                UIGameLose.SetActive(true);
                 Debug.Log("YOU LOSE");
             }
         }
